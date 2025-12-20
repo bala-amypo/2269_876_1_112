@@ -17,7 +17,7 @@ public class SimpleStatusServlet extends HttpServlet {
         }
     }
     TestServlet servlet = new TestServlet();
-    servlet.callDoGet(request, response);   // 
+    servlet.callDoGet(request, response);   
 
 
 
