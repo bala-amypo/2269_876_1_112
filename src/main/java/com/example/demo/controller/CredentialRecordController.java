@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/credentials")
@@ -20,17 +19,12 @@ public class CredentialRecordController {
 
     @PostMapping
     public CredentialRecord create(@RequestBody CredentialRecord record) {
-        return service.save(record);
+        return service.create(record);
     }
 
     @GetMapping("/{id}")
-    public Optional<CredentialRecord> getById(@PathVariable Long id) {
-        return service.findById(id);
-    }
-
-    @GetMapping
-    public List<CredentialRecord> getAll() {
-        return service.findAll();
+    public CredentialRecord getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @GetMapping("/expired")
@@ -38,13 +32,25 @@ public class CredentialRecordController {
         return service.findExpiredBefore(date);
     }
 
-    @PutMapping("/{id}")
-    public CredentialRecord update(@PathVariable Long id, @RequestBody CredentialRecord record) {
-        return service.update(id, record);
+    @GetMapping("/status/{status}")
+    public List<CredentialRecord> getByStatus(@PathVariable String status) {
+        return service.findByStatus(status);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.deleteById(id);
+    @GetMapping("/search")
+    public List<CredentialRecord> search(
+            @RequestParam String issuer,
+            @RequestParam String type) {
+        return service.searchByIssuerAndType(issuer, type);
+    }
+
+    @GetMapping("/holder/{holderId}")
+    public List<CredentialRecord> getByHolder(@PathVariable Long holderId) {
+        return service.findByHolderId(holderId);
+    }
+
+    @GetMapping("/code/{code}")
+    public CredentialRecord getByCode(@PathVariable String code) {
+        return service.findByCredentialCode(code);
     }
 }
