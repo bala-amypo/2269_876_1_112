@@ -2,15 +2,14 @@ package com.example.demo.servlet;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import or
+import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
 class SimpleStatusServletTest {
 
     static class TestServlet extends SimpleStatusServlet {
-        public void callDoGet(HttpServletRequest req, HttpServletResponse res)
-                throws Exception {
+        public void callDoGet(HttpServletRequest req, HttpServletResponse res) throws Exception {
             super.doGet(req, res);
         }
     }
