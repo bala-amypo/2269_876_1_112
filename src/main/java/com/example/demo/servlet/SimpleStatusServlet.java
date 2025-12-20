@@ -23,6 +23,9 @@ public class SimpleStatusServlet extends HttpServlet {
             super.doGet(req, res);
         }
     }
+    TestServlet servlet = new TestServlet();
+    servlet.callDoGet(request, response);   // ✅ allowed
+
 
 
 }
