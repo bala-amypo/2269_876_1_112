@@ -5,34 +5,37 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.CredentialRecordRepository;
 import com.example.demo.service.CredentialRecordService;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class CredentialRecordServiceImpl implements CredentialRecordService {
-    
+
     private final CredentialRecordRepository credentialRepository;
-    
+
+    // ✅ CORRECT: constructor injection
     public CredentialRecordServiceImpl(CredentialRecordRepository credentialRepository) {
         this.credentialRepository = credentialRepository;
     }
-    
+
     @Override
     public CredentialRecord createCredential(CredentialRecord record) {
-        // Check if expired
-        if (record.getExpiryDate() != null && record.getExpiryDate().isBefore(LocalDate.now())) {
+        if (record.getExpiryDate() != null &&
+            record.getExpiryDate().isBefore(LocalDate.now())) {
             record.setStatus("EXPIRED");
         } else if (record.getStatus() == null) {
             record.setStatus("VALID");
         }
         return credentialRepository.save(record);
     }
-    
+
     @Override
     public CredentialRecord updateCredential(Long id, CredentialRecord updated) {
         CredentialRecord existing = credentialRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Credential not found with id: " + id));
-        
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Credential not found with id: " + id));
+
         if (updated.getCredentialCode() != null) {
             existing.setCredentialCode(updated.getCredentialCode());
         }
@@ -54,25 +57,25 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
         if (updated.getMetadataJson() != null) {
             existing.setMetadataJson(updated.getMetadataJson());
         }
-        
-        // Re-check expiry
-        if (existing.getExpiryDate() != null && existing.getExpiryDate().isBefore(LocalDate.now())) {
+
+        if (existing.getExpiryDate() != null &&
+            existing.getExpiryDate().isBefore(LocalDate.now())) {
             existing.setStatus("EXPIRED");
         }
-        
+
         return credentialRepository.save(existing);
     }
-    
+
     @Override
     public List<CredentialRecord> getCredentialsByHolder(Long holderId) {
         return credentialRepository.findByHolderId(holderId);
     }
-    
+
     @Override
     public CredentialRecord getCredentialByCode(String code) {
         return credentialRepository.findByCredentialCode(code).orElse(null);
     }
-    
+
     @Override
     public List<CredentialRecord> getAllCredentials() {
         return credentialRepository.findAll();
