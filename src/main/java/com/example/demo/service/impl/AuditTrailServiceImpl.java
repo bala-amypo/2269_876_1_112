@@ -5,7 +5,6 @@ import com.example.demo.repository.AuditTrailRecordRepository;
 import com.example.demo.service.AuditTrailService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -19,7 +18,6 @@ public class AuditTrailServiceImpl implements AuditTrailService {
 
     @Override
     public AuditTrailRecord logEvent(AuditTrailRecord record) {
-        record.setTimestamp(LocalDateTime.now());
         return repository.save(record);
     }
 
