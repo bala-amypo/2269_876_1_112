@@ -11,7 +11,8 @@ import java.util.List;
 public interface CredentialRecordRepository
         extends JpaRepository<CredentialRecord, Long> {
 
-    List<CredentialRecord> findExpiredBefore(LocalDate date);
+    @Query("SELECT c FROM CredentialRecord c WHERE c.expiryDate < :date")
+    List<CredentialRecord> findExpiredBefore(@Param("date") LocalDate date);
 
     @Query("SELECT c FROM CredentialRecord c WHERE c.status = :status")
     List<CredentialRecord> findByStatusUsingHql(@Param("status") String status);
