@@ -12,39 +12,39 @@ import java.util.Optional;
 @RequestMapping("/api/credentials")
 public class CredentialRecordController {
 
-    private final CredentialRecordService credentialRecordService;
+    private final CredentialRecordService service;
 
-    public CredentialRecordController(CredentialRecordService credentialRecordService) {
-        this.credentialRecordService = credentialRecordService;
+    public CredentialRecordController(CredentialRecordService service) {
+        this.service = service;
     }
 
     @PostMapping
     public CredentialRecord create(@RequestBody CredentialRecord record) {
-        return credentialRecordService.createCredential(record);
+        return service.save(record);
     }
 
     @GetMapping("/{id}")
     public Optional<CredentialRecord> getById(@PathVariable Long id) {
-        return credentialRecordService.getCredentialById(id);
+        return service.findById(id);
     }
 
     @GetMapping
     public List<CredentialRecord> getAll() {
-        return credentialRecordService.getAllCredentials();
+        return service.findAll();
     }
 
     @GetMapping("/expired")
     public List<CredentialRecord> getExpired(@RequestParam LocalDate date) {
-        return credentialRecordService.getExpiredCredentials(date);
+        return service.findExpiredBefore(date);
     }
 
     @PutMapping("/{id}")
     public CredentialRecord update(@PathVariable Long id, @RequestBody CredentialRecord record) {
-        return credentialRecordService.updateCredential(id, record);
+        return service.update(id, record);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        credentialRecordService.deleteCredential(id);
+        service.deleteById(id);
     }
 }
