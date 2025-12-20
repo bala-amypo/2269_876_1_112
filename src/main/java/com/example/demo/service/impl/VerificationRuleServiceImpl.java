@@ -35,12 +35,7 @@ public class VerificationRuleServiceImpl implements VerificationRuleService {
     @Override
     public VerificationRule updateRule(Long id, VerificationRule rule) {
         return verificationRuleRepository.findById(id)
-                .map(existing -> {
-                    existing.setRuleName(rule.getRuleName());
-                    existing.setDescription(rule.getDescription());
-                    existing.setActive(rule.isActive());
-                    return verificationRuleRepository.save(existing);
-                })
+                .map(existing -> verificationRuleRepository.save(rule))
                 .orElseThrow(() -> new RuntimeException("Rule not found"));
     }
 
