@@ -18,21 +18,21 @@ public class CredentialHolderController {
 
     @PostMapping
     public CredentialHolderProfile create(@RequestBody CredentialHolderProfile profile) {
-        return service.createHolder(profile);
+        return service.create(profile);
     }
 
     @GetMapping("/{id}")
     public CredentialHolderProfile getById(@PathVariable Long id) {
-        return service.getHolderById(id);
+        return service.getById(id);
     }
 
     @GetMapping
     public List<CredentialHolderProfile> getAll() {
-        return service.getAllHolders();
+        return service.getAll();
     }
 
-    @PutMapping("/{id}/status")
-    public void updateStatus(@PathVariable Long id, @RequestParam boolean active) {
-        service.updateHolderStatus(id, active);
+    @PutMapping("/{id}/deactivate")
+    public CredentialHolderProfile deactivate(@PathVariable Long id) {
+        return service.deactivate(id);
     }
 }
