@@ -45,6 +45,13 @@ public class CredentialRecord {
 
     @Column(columnDefinition = "TEXT")
     private String metadataJson;
+    @ManyToMany
+    @JoinTable(
+        name = "credential_verification_rules",
+        joinColumns = @JoinColumn(name = "credential_id"),
+        inverseJoinColumns = @JoinColumn(name = "rule_id")
+    )
+    private Set<VerificationRule> rules = new HashSet<>();
 
     public Long getId() {
         return id;
