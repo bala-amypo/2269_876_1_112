@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.HashSet;
 
-
 @Entity
 @Table(
     name = "credential_record",
@@ -19,8 +18,9 @@ public class CredentialRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long holderId;
+    @ManyToOne
+    @JoinColumn(name = "holder_id", nullable = false)
+    private CredentialHolderProfile holder;
 
     @Column(nullable = false, unique = true)
     private String credentialCode;
@@ -43,6 +43,7 @@ public class CredentialRecord {
 
     @Column(columnDefinition = "TEXT")
     private String metadataJson;
+
     @ManyToMany
     @JoinTable(
         name = "credential_verification_rules",
@@ -51,20 +52,19 @@ public class CredentialRecord {
     )
     private Set<VerificationRule> rules = new HashSet<>();
 
+    public CredentialRecord() {
+    }
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public CredentialHolderProfile getHolder() {
+        return holder;
     }
 
-    public Long getHolderId() {
-        return holderId;
-    }
-
-    public void setHolderId(Long holderId) {
-        this.holderId = holderId;
+    public void setHolder(CredentialHolderProfile holder) {
+        this.holder = holder;
     }
 
     public String getCredentialCode() {
@@ -131,25 +131,7 @@ public class CredentialRecord {
         this.metadataJson = metadataJson;
     }
 
-    public CredentialRecord(Long id, Long holderId, String credentialCode, String title, String issuer,
-            LocalDate issueDate, LocalDate expiryDate, String credentialType, String status, String metadataJson) {
-        this.id = id;
-        this.holderId = holderId;
-        this.credentialCode = credentialCode;
-        this.title = title;
-        this.issuer = issuer;
-        this.issueDate = issueDate;
-        this.expiryDate = expiryDate;
-        this.credentialType = credentialType;
-        this.status = status;
-        this.metadataJson = metadataJson;
+    public Set<VerificationRule> getRules() {
+        return rules;
     }
-
-    public CredentialRecord() {
-    }
-    
-
-   
-    
-
 }
