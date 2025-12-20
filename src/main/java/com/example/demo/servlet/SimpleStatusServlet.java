@@ -10,11 +10,12 @@ import java.io.PrintWriter;
 public class SimpleStatusServlet extends HttpServlet {
     
     @Override
-     void doGet(HttpServletRequest req, HttpServletResponse resp) 
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException, IOException {
         resp.setContentType("text/plain");
-        PrintWriter writer = resp.getWriter();
-        writer.write("Digital Credential Verification Engine is running");
-        writer.flush();
-    }
+    PrintWriter writer = resp.getWriter();
+    writer.write("Digital Credential Verification Engine is running");
+    writer.flush();
+}
+
 }
