@@ -14,7 +14,7 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
 
     private final CredentialRecordRepository credentialRepository;
 
-    // ✅ CORRECT: constructor injection
+    // ✅ CORRECT: constr
     public CredentialRecordServiceImpl(CredentialRecordRepository credentialRepository) {
         this.credentialRepository = credentialRepository;
     }
