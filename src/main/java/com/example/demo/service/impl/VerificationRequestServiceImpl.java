@@ -10,6 +10,7 @@ import com.example.demo.repository.VerificationRequestRepository;
 import com.example.demo.repository.VerificationRuleRepository;
 import com.example.demo.service.AuditTrailService;
 import com.example.demo.service.VerificationRequestService;
+import com.example.demo.service.VerificationRuleService;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
