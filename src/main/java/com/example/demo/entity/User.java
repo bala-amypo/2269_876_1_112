@@ -26,15 +26,6 @@ public class User {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
     
-    public User() {}
-    
-    public User(String fullName, String email, String password, String role) {
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.role = role != null ? role : "VIEWER";
-    }
-    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
