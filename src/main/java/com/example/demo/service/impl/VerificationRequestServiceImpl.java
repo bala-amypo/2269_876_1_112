@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.service.CredentialRecordService;
 import com.example.demo.entity.AuditTrailRecord;
 import com.example.demo.entity.CredentialRecord;
 import com.example.demo.entity.VerificationRequest;
