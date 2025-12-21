@@ -27,7 +27,7 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
         VerificationRequestRepository verificationRequestRepository,
         CredentialRecordService credentialRecordService,
         VerificationRuleService verificationRuleService,
-        AuditTrailService auditTrailService)
+        AuditTrailService auditTrailService);
     
     @Override
     public VerificationRequest initiateVerification(VerificationRequest request) {
@@ -39,10 +39,12 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
         VerificationRequest request = verificationRequestRepository.findById(requestId)
                 .orElseThrow(() -> new ResourceNotFoundException("Verification request not found with id: " + requestId));
         
-        CredentialRecord credential = credentialRecordRepository.findById(request.getCredentialId())
+        CredentialRecord credential = credentialRecordService.getAllCredentials().stream()
+                .filter(c -> c.getId().equals(request.getCredentialId()))
+                .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Credential not found"));
         
-        List<VerificationRule> activeRules = verificationRuleRepository.findByActiveTrue();
+       List<VerificationRule> activeRules = verificationRuleService.getActiveRules();
         
         // Check if credential is expired
         if (credential.getExpiryDate() != null && credential.getExpiryDate().isBefore(LocalDate.now())) {
