@@ -19,20 +19,15 @@ import java.util.List;
 public class VerificationRequestServiceImpl implements VerificationRequestService {
     
     private final VerificationRequestRepository verificationRequestRepository;
-    private final CredentialRecordRepository credentialRecordRepository;
-    private final VerificationRuleRepository verificationRuleRepository;
+    private final CredentialRecordService credentialRecordService;
+    private final VerificationRuleService verificationRuleService;
     private final AuditTrailService auditTrailService;
     
     public VerificationRequestServiceImpl(
-            VerificationRequestRepository verificationRequestRepository,
-            CredentialRecordRepository credentialRecordRepository,
-            VerificationRuleRepository verificationRuleRepository,
-            AuditTrailService auditTrailService) {
-        this.verificationRequestRepository = verificationRequestRepository;
-        this.credentialRecordRepository = credentialRecordRepository;
-        this.verificationRuleRepository = verificationRuleRepository;
-        this.auditTrailService = auditTrailService;
-    }
+        VerificationRequestRepository verificationRequestRepository,
+        CredentialRecordService credentialRecordService,
+        VerificationRuleService verificationRuleService,
+        AuditTrailService auditTrailService)
     
     @Override
     public VerificationRequest initiateVerification(VerificationRequest request) {
