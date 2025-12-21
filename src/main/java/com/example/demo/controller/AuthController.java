@@ -33,8 +33,15 @@ public class AuthController {
     @PostMapping("/register")
     @Operation(summary = "Register new user", description = "Create a new user account")
     public ResponseEntity<JwtResponse> register(@RequestBody RegisterRequest request) {
-        User user = new User(request.getFullName(), request.getEmail(), 
-                           request.getPassword(), request.getRole());
+        User user = new User();
+        user.setFullName(request.getFullName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+
+        if (request.getRole() != null) {
+        user.setRole(request.getRole());
+}
+
         User savedUser = userService.registerUser(user);
         
         String token = jwtUtil.generateToken(savedUser.getId(), savedUser.getEmail(), savedUser.getRole());
