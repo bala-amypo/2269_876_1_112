@@ -15,15 +15,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // Disable CSRF
             .csrf(csrf -> csrf.disable())
-
-            // Allow ALL requests without authentication
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()
+                .anyRequest().permitAll()   
             )
-
-            // No sessions
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             );
