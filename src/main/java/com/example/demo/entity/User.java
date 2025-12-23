@@ -30,7 +30,7 @@ public class User {
     public User() {
     }
 
-    // ✅ 2. Constructor with 4 parameters (without id and createdAt)
+    // ✅ 2. Constructor: (fullName, email, password, role)
     public User(String fullName, String email, String password, String role) {
         this.fullName = fullName;
         this.email = email;
@@ -38,7 +38,7 @@ public class User {
         this.role = role;
     }
 
-    // ✅ 3. Constructor with 5 parameters (without id, with LocalDateTime)
+    // ✅ 3. Constructor: (fullName, email, password, role, createdAt)
     public User(String fullName, String email, String password, String role, LocalDateTime createdAt) {
         this.fullName = fullName;
         this.email = email;
@@ -47,7 +47,7 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    // ✅ 4. Constructor with 6 parameters (with id and LocalDateTime)
+    // ✅ 4. Constructor: (id, fullName, email, password, role, createdAt)
     public User(Long id, String fullName, String email, String password, String role, LocalDateTime createdAt) {
         this.id = id;
         this.fullName = fullName;
@@ -55,6 +55,17 @@ public class User {
         this.password = password;
         this.role = role;
         this.createdAt = createdAt;
+    }
+
+    // ✅ 5. Constructor: (Long as String, fullName, email, password, role, createdAt) - FOR REFLECTION/TESTING
+    public User(Long id, String fullName, String email, String password, String role, String createdAtStr) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        // Parse string to LocalDateTime if needed, or leave null for @PrePersist
+        this.createdAt = null; // Let @PrePersist handle it
     }
 
     // ✅ Auto-set createdAt before persisting
