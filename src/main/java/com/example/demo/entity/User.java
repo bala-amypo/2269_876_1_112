@@ -24,25 +24,33 @@ public class User {
     private String role = "VIEWER";
 
     @Column(nullable = false, updatable = false)
-    private String createdAt;
+    private LocalDateTime createdAt;  // ✅ Changed from String to LocalDateTime
 
     // ✅ REQUIRED by JPA
     public User() {
     }
 
-    //✅ PARAMETERIZED CONSTRUCTOR (fixes your build error)
+    // ✅ Constructor with LocalDateTime
     public User(Long id,
                 String fullName,
                 String email,
                 String password,
                 String role,
-                String createdAt) {
+                LocalDateTime createdAt) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
         this.createdAt = createdAt;
+    }
+
+    // ✅ Auto-set createdAt before persisting
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
     }
 
     // ===== Getters & Setters =====
@@ -87,11 +95,11 @@ public class User {
         this.role = role;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {  // ✅ Return type changed
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {  // ✅ Parameter type changed
         this.createdAt = createdAt;
     }
 }
