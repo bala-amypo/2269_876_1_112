@@ -30,20 +30,20 @@ public class User {
     public User() {
     }
 
-    // ✅ PARAMETERIZED CONSTRUCTOR (fixes your build error)
-    // public User(Long id,
-    //             String fullName,
-    //             String email,
-    //             String password,
-    //             String role,
-    //             LocalDateTime createdAt) {
-    //     this.id = id;
-    //     this.fullName = fullName;
-    //     this.email = email;
-    //     this.password = password;
-    //     this.role = role;
-    //     this.createdAt = createdAt;
-    // }
+    ✅ PARAMETERIZED CONSTRUCTOR (fixes your build error)
+    public User(Long id,
+                String fullName,
+                String email,
+                String password,
+                String role,
+                LocalDateTime createdAt) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.createdAt = createdAt;
+    }
 
     // ===== Getters & Setters =====
 
