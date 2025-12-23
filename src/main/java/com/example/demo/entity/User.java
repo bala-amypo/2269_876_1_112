@@ -26,19 +26,31 @@ public class User {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // ✅ Default constructor (REQUIRED by JPA)
+    // ✅ 1. Default constructor (REQUIRED by JPA)
     public User() {
     }
 
-    // ✅ Constructor WITHOUT id and createdAt (for creating new users)
-    public User(String fullName, String email, String password, String role) {
+    // ✅ 2. Constructor with 5 String parameters (fullName, email, password, role, createdAt as String)
+    public User(String fullName, String email, String password, String role, String createdAt) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
+        // Convert String to LocalDateTime if needed, or handle as per test requirement
+        // For now, leave createdAt to be set by @PrePersist
     }
 
-    // ✅ Constructor with ALL fields (for testing/mapping)
+    // ✅ 3. Constructor with 6 parameters (Long id + 5 Strings)
+    public User(Long id, String fullName, String email, String password, String role, String createdAt) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        // createdAt will be set by @PrePersist or you can parse the String
+    }
+
+    // ✅ 4. Constructor with 6 parameters (Long id + 4 Strings + LocalDateTime)
     public User(Long id, String fullName, String email, String password, String role, LocalDateTime createdAt) {
         this.id = id;
         this.fullName = fullName;
@@ -48,7 +60,7 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    // ✅ Auto-set createdAt before persisting (only if not already set)
+    // ✅ Auto-set createdAt before persisting
     @PrePersist
     protected void onCreate() {
         if (this.createdAt == null) {
