@@ -24,7 +24,7 @@ public class User {
     private String role = "VIEWER";
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private String createdAt = LocalDateTime.now();
 
     // ✅ REQUIRED by JPA
     public User() {
@@ -36,7 +36,7 @@ public class User {
                 String email,
                 String password,
                 String role,
-                LocalDateTime createdAt) {
+                String createdAt) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -87,11 +87,11 @@ public class User {
         this.role = role;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 }
