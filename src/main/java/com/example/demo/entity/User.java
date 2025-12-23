@@ -57,17 +57,6 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    // ✅ 5. Constructor: (Long as String, fullName, email, password, role, createdAt) - FOR REFLECTION/TESTING
-    public User(Long id, String fullName, String email, String password, String role, String createdAtStr) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        // Parse string to LocalDateTime if needed, or leave null for @PrePersist
-        this.createdAt = null; // Let @PrePersist handle it
-    }
-
     // ✅ Auto-set createdAt before persisting
     @PrePersist
     protected void onCreate() {
