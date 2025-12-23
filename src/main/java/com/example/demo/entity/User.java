@@ -30,7 +30,7 @@ public class User {
     public User() {
     }
 
-    ✅ PARAMETERIZED CONSTRUCTOR (fixes your build error)
+    //✅ PARAMETERIZED CONSTRUCTOR (fixes your build error)
     public User(Long id,
                 String fullName,
                 String email,
