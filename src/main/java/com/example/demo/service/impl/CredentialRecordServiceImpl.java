@@ -1,4 +1,4 @@
-ackage com.example.demo.service.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.entity.CredentialRecord;
 import com.example.demo.exception.ResourceNotFoundException;
@@ -19,7 +19,6 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
     
     @Override
     public CredentialRecord createCredential(CredentialRecord record) {
-        // Check if expired
         if (record.getExpiryDate() != null && record.getExpiryDate().isBefore(LocalDate.now())) {
             record.setStatus("EXPIRED");
         } else if (record.getStatus() == null) {
@@ -55,7 +54,6 @@ public class CredentialRecordServiceImpl implements CredentialRecordService {
             existing.setMetadataJson(updated.getMetadataJson());
         }
         
-        // Re-check expiry
         if (existing.getExpiryDate() != null && existing.getExpiryDate().isBefore(LocalDate.now())) {
             existing.setStatus("EXPIRED");
         }
