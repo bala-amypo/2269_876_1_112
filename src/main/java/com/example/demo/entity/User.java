@@ -30,27 +30,24 @@ public class User {
     public User() {
     }
 
-    // ✅ 2. Constructor with 5 String parameters (fullName, email, password, role, createdAt as String)
-    public User(String fullName, String email, String password, String role, String createdAt) {
+    // ✅ 2. Constructor with 4 parameters (without id and createdAt)
+    public User(String fullName, String email, String password, String role) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
-        // Convert String to LocalDateTime if needed, or handle as per test requirement
-        // For now, leave createdAt to be set by @PrePersist
     }
 
-    // ✅ 3. Constructor with 6 parameters (Long id + 5 Strings)
-    public User(Long id, String fullName, String email, String password, String role, String createdAt) {
-        this.id = id;
+    // ✅ 3. Constructor with 5 parameters (without id, with LocalDateTime)
+    public User(String fullName, String email, String password, String role, LocalDateTime createdAt) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
-        // createdAt will be set by @PrePersist or you can parse the String
+        this.createdAt = createdAt;
     }
 
-    // ✅ 4. Constructor with 6 parameters (Long id + 4 Strings + LocalDateTime)
+    // ✅ 4. Constructor with 6 parameters (with id and LocalDateTime)
     public User(Long id, String fullName, String email, String password, String role, LocalDateTime createdAt) {
         this.id = id;
         this.fullName = fullName;
