@@ -24,19 +24,22 @@ public class User {
     private String role = "VIEWER";
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;  // ✅ Changed from String to LocalDateTime
+    private LocalDateTime createdAt;
 
-    // ✅ REQUIRED by JPA
+    // ✅ Default constructor (REQUIRED by JPA)
     public User() {
     }
 
-    // ✅ Constructor with LocalDateTime
-    public User(Long id,
-                String fullName,
-                String email,
-                String password,
-                String role,
-                LocalDateTime createdAt) {
+    // ✅ Constructor WITHOUT id and createdAt (for creating new users)
+    public User(String fullName, String email, String password, String role) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    // ✅ Constructor with ALL fields (for testing/mapping)
+    public User(Long id, String fullName, String email, String password, String role, LocalDateTime createdAt) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -45,11 +48,14 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    // ✅ Auto-set createdAt before persisting
+    // ✅ Auto-set createdAt before persisting (only if not already set)
     @PrePersist
     protected void onCreate() {
         if (this.createdAt == null) {
             this.createdAt = LocalDateTime.now();
+        }
+        if (this.role == null || this.role.isEmpty()) {
+            this.role = "VIEWER";
         }
     }
 
@@ -95,11 +101,11 @@ public class User {
         this.role = role;
     }
 
-    public LocalDateTime getCreatedAt() {  // ✅ Return type changed
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {  // ✅ Parameter type changed
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }
