@@ -51,7 +51,6 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
         
         List<VerificationRule> activeRules = verificationRuleService.getActiveRules();
         
-        // Check if credential is expired
         if (credential.getExpiryDate() != null && credential.getExpiryDate().isBefore(LocalDate.now())) {
             request.setStatus("FAILED");
             request.setResultMessage("Credential has expired");
@@ -62,7 +61,6 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
         
         request.setVerifiedAt(LocalDateTime.now());
         
-        // Log audit trail
         AuditTrailRecord auditRecord = new AuditTrailRecord(
                 credential.getId(),
                 "VERIFICATION",
@@ -81,46 +79,5 @@ public class VerificationRequestServiceImpl implements VerificationRequestServic
     @Override
     public List<VerificationRequest> getAllRequests() {
         return verificationRequestRepository.findAll();
-    }
-}
-
-// ============================================
-// AuditTrailServiceImpl.java - FIXED
-// Path: src/main/java/com/example/demo/service/impl/AuditTrailServiceImpl.java
-// ============================================
-package com.example.demo.service.impl;
-
-import com.example.demo.entity.AuditTrailRecord;
-import com.example.demo.repository.AuditTrailRecordRepository;
-import com.example.demo.service.AuditTrailService;
-import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
-import java.util.List;
-
-@Service
-public class AuditTrailServiceImpl implements AuditTrailService {
-    
-    private final AuditTrailRecordRepository auditRepository;
-    
-    public AuditTrailServiceImpl(AuditTrailRecordRepository auditRepository) {
-        this.auditRepository = auditRepository;
-    }
-    
-    @Override
-    public AuditTrailRecord logEvent(AuditTrailRecord record) {
-        if (record.getLoggedAt() == null) {
-            record.setLoggedAt(LocalDateTime.now());
-        }
-        return auditRepository.save(record);
-    }
-    
-    @Override
-    public List<AuditTrailRecord> getLogsByCredential(Long credentialId) {
-        return auditRepository.findByCredentialId(credentialId);
-    }
-    
-    @Override
-    public List<AuditTrailRecord> getAllLogs() {
-        return auditRepository.findAll();
     }
 }
