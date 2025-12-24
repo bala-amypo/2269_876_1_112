@@ -48,7 +48,7 @@ public class AuthController {
             savedUser.getId(),
             savedUser.getEmail(),
             savedUser.getRole()
-            );
+            )     ;
 
         JwtResponse response = new JwtResponse(
             token,
