@@ -95,7 +95,7 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- Lombok (Optional but recommended) -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
